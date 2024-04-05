@@ -86,8 +86,8 @@
             break;
           }
           // 모든 입력이 정확하고, 정확한 시퀀스의 길이에 도달했다면 새 이미지를 보여줌
-          if (i === correctInput.length - 1) {
-            document.querySelector('.background').style.backgroundImage = "url('차장구증거.jpg')";
+         if (isCorrectSequence && userInput.length === correctInput.length) {
+        window.location.href = "https://slashpage.com/차장구금고"; // 여기를 원하는 URL로 변경하세요
           }
         }
       }
