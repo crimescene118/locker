@@ -1,1 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>차장구금고</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+  }
+  .background {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%; /* 이미지의 높이/너비 비율에 맞춤 */
+  background-image: url('차장구금고.jpg'); /* 배경 이미지 경로 */
+  background-size: cover;
+  background-position: center;
+}
+.button {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: calc(35 / 1170 * 100%);
+  height: calc(23 / 2532 * 100%);
+}
 
+  .button:active {
+  opacity: 0.6; /* 버튼을 누를 때 투명도 적용 */
+}
+
+@media (max-width: 768px) {
+.background {
+    padding-bottom: 100%; /* 모바일 화면 비율에 맞게 조정 */
+  }
+  .button {
+}
+
+</style>
+</head>
+<body>
+
+<div class="background">
+<button class="button" id="button1" style="top: calc(335 / 750 * 100%); left: calc(440 / 750 * 100%);"></button>
+<button class="button" id="button2" style="top: calc(335 / 750 * 100%); left: calc(509 / 750 * 100%);"></button>
+<button class="button" id="button3" style="top: calc(335 / 750 * 100%); left: calc(577 / 750 * 100%);"></button>
+<button class="button" id="button4" style="top: calc(377 / 750 * 100%); left: calc(440 / 750 * 100%);"></button>
+<button class="button" id="button5" style="top: calc(377 / 750 * 100%); left: calc(509 / 750 * 100%);"></button>
+<button class="button" id="button6" style="top: calc(377 / 750 * 100%); left: calc(577 / 750 * 100%);"></button>
+<button class="button" id="button7" style="top: calc(418 / 750 * 100%); left: calc(440 / 750 * 100%);"></button>
+<button class="button" id="button8" style="top: calc(418 / 750 * 100%); left: calc(509 / 750 * 100%);"></button>
+<button class="button" id="button9" style="top: calc(418 / 750 * 100%); left: calc(577 / 750 * 100%);"></button>
+<button class="button" id="button0" style="top: calc(459 / 750 * 100%); left: calc(509 / 750 * 100%);"></button>
+<button class="button" id="button10" style="top: calc(459 / 750 * 100%); left: calc(577 / 750 * 100%);"></button>
+</div>
+
+<script>
+  let userInput = [];
+  const correctInput = ['0', '1', '0', '5', '10'];
+
+  document.querySelectorAll('.button').forEach(button => {
+    button.addEventListener('click', function() {
+      const numPressed = this.id.replace('button', '');
+      userInput.push(numPressed);
+
+      // 사용자 입력 검증
+      if (userInput.length <= correctInput.length) {
+        for (let i = 0; i < userInput.length; i++) {
+          if (userInput[i] !== correctInput[i]) {
+            // 잘못된 입력, 사용자 입력 초기화
+            userInput = [];
+            break;
+          }
+          // 모든 입력이 정확하고, 정확한 시퀀스의 길이에 도달했다면 새 이미지를 보여줌
+          if (i === correctInput.length - 1) {
+            document.querySelector('.background').style.backgroundImage = "url('차장구증거.jpg')";
+          }
+        }
+      }
+    });
+  });
+</script>
+  
+</body>
+</html>
