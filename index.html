@@ -41,6 +41,11 @@
   .button {
 }
 
+ @keyframes flashRed {
+  from, to { background-color: initial; }
+  50% { background-color: red; }
+}
+
 </style>
 </head>
 <body>
@@ -60,37 +65,49 @@
 </div>
 
 <script>
-  let userInput = [];
-  const correctInput = ['0', '1', '0', '5', '10'];
+ let userInput = [];
+const correctInput = ['0', '1', '0', '5', '10'];
 
-  document.querySelectorAll('.button').forEach(button => {
-    button.addEventListener('click', function() {
-      const numPressed = this.id.replace('button', '');
-      userInput.push(numPressed);
-      
-       this.classList.add('clicked');
+document.querySelectorAll('.button').forEach(button => {
+  button.addEventListener('click', function() {
+    const numPressed = this.id.replace('button', '');
+    userInput.push(numPressed);
+    
+    this.classList.add('clicked');
     setTimeout(() => {
       this.classList.remove('clicked');
     }, 200); // 200ms 후에 클릭 효과 제거
 
-        // 사용자 입력 검증
-      if (userInput.length === correctInput.length) {
-        let isSequenceCorrect = true;
-        for (let i = 0; i < correctInput.length; i++) {
-          if (userInput[i] !== correctInput[i]) {
-            isSequenceCorrect = false;
-            break;
-          }
-        }
-
-        if (isSequenceCorrect) {
-          window.location.href = "https://slashpage.com/차장구금고"; // 정확한 시퀀스 입력 시 이동할 URL
-        } else {
-          userInput = []; // 잘못된 입력, 사용자 입력 초기화
+    // 사용자 입력 검증
+    if (userInput.length === correctInput.length) {
+      let isSequenceCorrect = true;
+      for (let i = 0; i < correctInput.length; i++) {
+        if (userInput[i] !== correctInput[i]) {
+          isSequenceCorrect = false;
+          break;
         }
       }
-    });
+
+      if (isSequenceCorrect) {
+        window.location.href = "https://slashpage.com/차장구금고"; // 정확한 시퀀스 입력 시 이동할 URL
+      } else {
+        // 잘못된 입력, 사용자 입력 초기화 및 시각적 피드백
+        userInput = [];
+        document.querySelector('.background').style.animation = 'flashRed 0.5s';
+        setTimeout(() => {
+          document.querySelector('.background').style.animation = '';
+        }, 500); // 애니메이션을 제거하여 다시 정상 상태로 복구
+      }
+    } else if (userInput.length > correctInput.length) {
+      // 입력이 정확한 시퀀스보다 길어지면 초기화
+      userInput = [];
+      document.querySelector('.background').style.animation = 'flashRed 0.5s';
+      setTimeout(() => {
+        document.querySelector('.background').style.animation = '';
+      }, 500);
+    }
   });
+});
 </script>
   
 </body>
