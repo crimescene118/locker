@@ -33,6 +33,9 @@
   .button:active {
   opacity: 0.6; /* 버튼을 누를 때 투명도 적용 */
 }
+.button.clicked {
+  opacity: 0.6; /* 클릭된 상태를 표시하기 위해 불투명도 적용 */
+}
 
 @media (max-width: 768px) {
 .background {
@@ -67,7 +70,13 @@
     button.addEventListener('click', function() {
       const numPressed = this.id.replace('button', '');
       userInput.push(numPressed);
+      
+       this.classList.add('clicked');
+    setTimeout(() => {
+      this.classList.remove('clicked');
+    }, 200); // 200ms 후에 클릭 효과 제거
 
+    
       // 사용자 입력 검증
       if (userInput.length <= correctInput.length) {
         for (let i = 0; i < userInput.length; i++) {
