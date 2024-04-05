@@ -30,13 +30,10 @@
   height: calc(23 / 750 * 100%);
 }
 
-  .button:active {
+ .button:active, .button.clicked {
   opacity: 0.6; /* 버튼을 누를 때 투명도 적용 */
 }
-.button.clicked {
-  opacity: 0.6; /* 클릭된 상태를 표시하기 위해 불투명도 적용 */
-}
-
+  
 @media (max-width: 768px) {
 .background {
     padding-bottom: 100%; /* 모바일 화면 비율에 맞게 조정 */
@@ -76,19 +73,20 @@
       this.classList.remove('clicked');
     }, 200); // 200ms 후에 클릭 효과 제거
 
-    
-      // 사용자 입력 검증
-      if (userInput.length <= correctInput.length) {
-        for (let i = 0; i < userInput.length; i++) {
+        // 사용자 입력 검증
+      if (userInput.length === correctInput.length) {
+        let isSequenceCorrect = true;
+        for (let i = 0; i < correctInput.length; i++) {
           if (userInput[i] !== correctInput[i]) {
-            // 잘못된 입력, 사용자 입력 초기화
-            userInput = [];
+            isSequenceCorrect = false;
             break;
           }
-          // 모든 입력이 정확하고, 정확한 시퀀스의 길이에 도달했다면 새 이미지를 보여줌
-         if (isCorrectSequence && userInput.length === correctInput.length) {
-        window.location.href = "https://slashpage.com/차장구금고"; // 여기를 원하는 URL로 변경하세요
-          }
+        }
+
+        if (isSequenceCorrect) {
+          window.location.href = "https://slashpage.com/차장구금고"; // 정확한 시퀀스 입력 시 이동할 URL
+        } else {
+          userInput = []; // 잘못된 입력, 사용자 입력 초기화
         }
       }
     });
